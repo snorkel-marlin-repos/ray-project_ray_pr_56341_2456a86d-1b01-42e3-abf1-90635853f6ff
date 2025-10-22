@@ -63,8 +63,7 @@ class ObjectBufferPool {
   ~ObjectBufferPool();
 
   /// This object cannot be copied due to pool_mutex.
-  ObjectBufferPool(const ObjectBufferPool &) = delete;
-  ObjectBufferPool &operator=(const ObjectBufferPool &) = delete;
+  RAY_DISALLOW_COPY_AND_ASSIGN(ObjectBufferPool);
 
   /// Computes the number of chunks needed to transfer an object and its metadata.
   ///

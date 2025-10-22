@@ -14,6 +14,13 @@
 
 #pragma once
 
+// From Google gutil
+#ifndef RAY_DISALLOW_COPY_AND_ASSIGN
+#define RAY_DISALLOW_COPY_AND_ASSIGN(TypeName) \
+  TypeName(const TypeName &) = delete;         \
+  void operator=(const TypeName &) = delete
+#endif
+
 #define RAY_UNUSED(x) (void)x
 
 //
