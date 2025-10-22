@@ -18,8 +18,11 @@
 #pragma once
 
 #include <gtest/gtest_prod.h>
+#include <stddef.h>
 
-#include <cstddef>
+#include <memory>
+#include <string>
+#include <unordered_map>
 #include <utility>
 
 #include "ray/common/id.h"
@@ -27,6 +30,7 @@
 #include "ray/object_manager/plasma/plasma.h"
 #include "ray/object_manager/plasma/plasma_generated.h"
 #include "ray/util/compat.h"
+#include "ray/util/macros.h"
 
 namespace plasma {
 
@@ -69,8 +73,7 @@ struct Allocation {
   bool fallback_allocated_;
 
   // only allow moves.
-  Allocation(const Allocation &) = delete;
-  Allocation &operator=(const Allocation &) = delete;
+  RAY_DISALLOW_COPY_AND_ASSIGN(Allocation);
   Allocation(Allocation &&) noexcept = default;
   Allocation &operator=(Allocation &&) noexcept = default;
 
@@ -113,11 +116,9 @@ struct Allocation {
 /// the eviction policy.
 class LocalObject {
  public:
-  explicit LocalObject(Allocation allocation)
-      : allocation_(std::move(allocation)), ref_count_(0) {}
+  explicit LocalObject(Allocation allocation);
 
-  LocalObject(const LocalObject &) = delete;
-  LocalObject &operator=(const LocalObject &) = delete;
+  RAY_DISALLOW_COPY_AND_ASSIGN(LocalObject);
 
   int64_t GetObjectSize() const { return object_info_.GetObjectSize(); }
 

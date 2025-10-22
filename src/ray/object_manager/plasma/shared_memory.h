@@ -27,9 +27,6 @@ class ClientMmapTableEntry {
  public:
   ClientMmapTableEntry(MEMFD_TYPE fd, int64_t map_size);
 
-  ClientMmapTableEntry(const ClientMmapTableEntry &) = delete;
-  ClientMmapTableEntry &operator=(const ClientMmapTableEntry &) = delete;
-
   ~ClientMmapTableEntry();
 
   uint8_t *pointer() const { return reinterpret_cast<uint8_t *>(pointer_); }
@@ -45,6 +42,8 @@ class ClientMmapTableEntry {
   size_t length_;
 
   void MaybeMadviseDontdump();
+
+  RAY_DISALLOW_COPY_AND_ASSIGN(ClientMmapTableEntry);
 };
 
 }  // namespace plasma
